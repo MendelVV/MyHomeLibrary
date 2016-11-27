@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/FormDialogCreateLibrary.cfpoq</file>
+        <file>resource/save.png</file>
+        <file>resource/search.png</file>
+        <file>resource/addBook.png</file>
+        <file>resource/removeBook.png</file>
+        <file>resource/library.png</file>
+        <file>resource/FormInformation.cfpoq</file>
+        <file>resource/FormSelectLibrary.cfpoq</file>
+        <file>resource/FormSearchWidget.cfpoq</file>
+        <file>resource/FormFilterWidget.cfpoq</file>
+        <file>resource/FormBookView.cfpoq</file>
+    </qresource>
+</RCC>
