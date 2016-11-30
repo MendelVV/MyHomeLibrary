@@ -2,7 +2,7 @@
 #define FILTERWIDGET_H
 
 #include "scrollwidget.h"
-#include "sqlclass.h"
+#include "database/sqlclass.h"
 #include "bookstable.h"
 
 class FilterWidget : public QMainWindow
@@ -14,6 +14,8 @@ protected:
     FormPlusData* form;
     BooksTable* table;
     SQLClass* db;
+
+    void setFormText();
 signals:
     void signalFilter(QVector<QVector<QString> >);
 public slots:

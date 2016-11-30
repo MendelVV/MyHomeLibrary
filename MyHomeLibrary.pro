@@ -8,31 +8,24 @@ QT += core gui xml sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-VERSION = 1.0.1.1
+VERSION = 1.1.0.1
 
 RC_ICONS = lib.ico
 
 TARGET = MyHomeLibrary
 TEMPLATE = app
 
-DEPENDPATH+=D:/My_dll_library/headers/mkform
-INCLUDEPATH+=D:/My_dll_library/headers/mkform
+TRANSLATIONS +=myhomelibrary_ru.ts
 
-LIBS+=-LD:/My_dll_library/qt_5.5 -lmkform1
-#LIBS+=-LF:/My_dll_library/32_2 -lmkform1
+DEPENDPATH+=libs/headers/mkform
+INCLUDEPATH+=libs/headers/mkform
+
+LIBS+=-LC:/Qt/projects/MyHomeLibrary/libs -lmkform1
 
 SOURCES += main.cpp \
-    bookclass.cpp \
-    settingsbooksclass.cpp \
-    sqlclass.cpp \
-    sqlcursor.cpp \
-    librarywindow.cpp \
-    libraryclass.cpp \
-    bookstable.cpp \
     dialogs/dialogcreatelibrary.cpp \
     dialogs/bookview.cpp \
     dialogs/dialogselectdata.cpp \
-    filterwidget.cpp \
     styleclass.cpp \
     dialogs/dialogtypesbook.cpp \
     dialogs/dialoginform.cpp \
@@ -42,21 +35,21 @@ SOURCES += main.cpp \
     bibliografy/bibliografywindow.cpp \
     bibliografy/bibliografylist.cpp \
     bibliografy/bibliografytable.cpp \
-    searchwidget.cpp \
-    dialogs/dialogselectlibrary.cpp
+    dialogs/dialogselectlibrary.cpp \
+    widgets/filterwidget.cpp \
+    widgets/bookstable.cpp \
+    widgets/searchwidget.cpp \
+    widgets/librarywindow.cpp \
+    library_classes/bookclass.cpp \
+    library_classes/libraryclass.cpp \
+    library_classes/settingsbooksclass.cpp \
+    database/sqlclass.cpp \
+    database/sqlcursor.cpp
 
 HEADERS  += \
-    bookclass.h \
-    settingsbooksclass.h \
-    sqlclass.h \
-    sqlcursor.h \
-    librarywindow.h \
-    libraryclass.h \
-    bookstable.h \
     dialogs/dialogcreatelibrary.h \
     dialogs/bookview.h \
     dialogs/dialogselectdata.h \
-    filterwidget.h \
     styleclass.h \
     dialogs/dialogtypesbook.h \
     dialogs/dialoginform.h \
@@ -66,8 +59,16 @@ HEADERS  += \
     bibliografy/bibliografywindow.h \
     bibliografy/bibliografylist.h \
     bibliografy/bibliografytable.h \
-    searchwidget.h \
-    dialogs/dialogselectlibrary.h
+    dialogs/dialogselectlibrary.h \
+    widgets/filterwidget.h \
+    widgets/bookstable.h \
+    widgets/librarywindow.h \
+    widgets/searchwidget.h \
+    library_classes/bookclass.h \
+    library_classes/settingsbooksclass.h \
+    library_classes/libraryclass.h \
+    database/sqlclass.h \
+    database/sqlcursor.h
 
 RESOURCES += \
     resource.qrc

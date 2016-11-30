@@ -9,6 +9,9 @@ class DialogCreateLibrary : public QDialog
 public:
     explicit DialogCreateLibrary(QWidget *parent = 0);
     FormPlusData* form;
+protected:
+    void setFormText();
+
 signals:
 
 public slots:

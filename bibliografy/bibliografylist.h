@@ -2,7 +2,7 @@
 #define BIBLIOGRAFYLIST_H
 
 #include <QtWidgets>
-#include "sqlclass.h"
+#include "database/sqlclass.h"
 #include "bibliografytable.h"
 #include "bibliografywindow.h"
 

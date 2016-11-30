@@ -27,23 +27,23 @@ BibliografyList::BibliografyList(SQLClass* dbC, QWidget *parent) :
 }
 
 void BibliografyList::setActMenu(){
-    actAdd = new QAction("Добавить",0);
+    actAdd = new QAction(tr("Add"),0);
     connect(actAdd,SIGNAL(triggered(bool)),this,SLOT(slotAdd()));
 
-    actSave = new QAction("Сохранить",0);
+    actSave = new QAction(tr("Save"),0);
     connect(actSave,SIGNAL(triggered(bool)),this,SLOT(slotSave()));
 
-    actSaveAndClose = new QAction("Сохранить и закрыть",0);
+    actSaveAndClose = new QAction(tr("Save and close"),0);
     connect(actSaveAndClose,SIGNAL(triggered(bool)),this,SLOT(slotSaveAndClose()));
 
-    actClose = new QAction("Закрыть",0);
+    actClose = new QAction(tr("Close"),0);
     connect(actClose,SIGNAL(triggered(bool)),this,SLOT(close()));
 }
 
 void BibliografyList::slotAdd(){
     QString qr = "SELECT type FROM tableBooksTypes ORDER BY type ASC;";
     QStringList lst = db->selectQueryColumnAsList(qr);
-    lst.insert(0,"Общий");
+    lst.insert(0,tr("Shared"));//"Общий"
     BibliografyWindow* bw = new BibliografyWindow(lst, 0, this);
     bw->move(20*x,20*y);
     connect(bw,SIGNAL(signalSave(BibliografyClass*)),this,SLOT(slotAddInDb(BibliografyClass*)));
@@ -106,7 +106,7 @@ void BibliografyList::slotOpen(QString code){
 
     QString qr = "SELECT type FROM tableBooksTypes ORDER BY type ASC;";
     QStringList lst = db->selectQueryColumnAsList(qr);
-    lst.insert(0,"Общий");
+    lst.insert(0,tr("Shared"));
     BibliografyWindow* bw = new BibliografyWindow(lst, bibC, this);
     bw->move(20*x,20*y);
     connect(bw,SIGNAL(signalSave(BibliografyClass*)),this,SLOT(slotEditInDb(BibliografyClass*)));

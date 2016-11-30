@@ -42,7 +42,7 @@ DialogSelectData::DialogSelectData(QString columnName, SQLClass* dbC, QVector<QS
     QHBoxLayout* ltb = new QHBoxLayout;
     QPushButton* butOk = new QPushButton("Оk");
     connect(butOk,SIGNAL(clicked(bool)),this,SLOT(accept()));
-    QPushButton* butCancel = new QPushButton("Отмена");
+    QPushButton* butCancel = new QPushButton(tr("Cancel"));
     connect(butCancel,SIGNAL(clicked(bool)),this,SLOT(reject()));
     ltb->addWidget(butOk);
     ltb->addWidget(butCancel);

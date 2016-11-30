@@ -10,7 +10,11 @@ BooksTable::BooksTable(QVector<QVector<QString> > dt, QWidget *parent) :
 
     int n = 6;//количество столбцов
     QStringList lst;
-    lst<<""<<"code"<<"Категория"<<"Подкатегория"<<"Название"<<"Авторы";
+    lst<<""<<"code"
+      <<tr("Category")//"Категория"
+     <<tr("Subcategory")//"Подкатегория"
+    <<tr("Title")//"Название"
+    <<tr("Authors");//"Авторы";
     for (int i=0;i<n;i++){
         insertColumn(i);
     }
@@ -30,11 +34,11 @@ BooksTable::BooksTable(QVector<QVector<QString> > dt, QWidget *parent) :
     //colorRow=QColor(215,216,245);
     setAlternatingRowColors(true);
     contMenu = new QMenu;
-    QAction* actOpenBook = new QAction("Открыть карточку",0);
+    QAction* actOpenBook = new QAction(tr("Open card"),0);//"Открыть карточку"
     connect(actOpenBook,SIGNAL(triggered(bool)),this,SLOT(slotOpenBook()));
     contMenu->addAction(actOpenBook);
 
-    QAction* actOpenBookFile = new QAction("Открыть файл",0);
+    QAction* actOpenBookFile = new QAction(tr("Open file"),0);//"Открыть файл"
     connect(actOpenBookFile,SIGNAL(triggered(bool)),this,SLOT(slotOpenBookFile()));
     contMenu->addAction(actOpenBookFile);
 }

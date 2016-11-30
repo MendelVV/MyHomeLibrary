@@ -5,7 +5,7 @@ BibliografyWindow::BibliografyWindow(QStringList typesBk, BibliografyClass* bibC
     //QMainWindow(parent)
 {
     setModal(true);
-    setWindowTitle("Настройка оформления списка литературы");
+    setWindowTitle(tr("Bibliography settings"));
     y =((double)GetSystemMetrics(SM_CYSCREEN))/100;
     x =((double)GetSystemMetrics(SM_CXSCREEN))/100;
     typesBook=typesBk;
@@ -26,15 +26,22 @@ BibliografyWindow::BibliografyWindow(QStringList typesBk, BibliografyClass* bibC
     if (bibCls!=0){
         setLine(bibCls->getValue());
     }
-    addItem("Э");
-    addItem("Р");
+    addItem(tr("E"));
+    addItem(tr("D"));
 //оформление
-    QString str="<p align='justify'>Для создания строки библиографического списка перетаскивайте в строку нужные элементы. "
-                "<font color='blue'>Синий прямоугольник</font> соответствует элементу относящемуся к книге (Автор, Название книги, Издательство и т.д.), "
-                "<font color='red'>красный прямоугольник</font> соответствует некоторому разделителю (';', '- ', 'набор символов')."
-                " Задать и изменить значение в элементе можно при помощи пункта 'Значение' контекстного меню. "
-                "Так же в полях над строкой нужно указать тип издания для которого применяется такое оформление литературы"
-                " и небольшое примечание, если оно нужно.<p>";
+    QStringList lstTr;
+    lstTr<<tr("For create bibliography line need drag elements to line.");//Для создания строки библиографического списка перетаскивайте в строку нужные элементы.
+    lstTr<<tr("Blue rect");//Синий прямоугольник
+    lstTr<<tr("is book element (Author, Title, Year and other),");//соответствует элементу относящемуся к книге (Автор, Название книги, Издательство и т.д.),
+    lstTr<<tr("red rect");//Красный прямоугольник
+    lstTr<<tr("is delimeted (';', '- ', 'other symbols').");//соответствует некоторому разделителю (';', '- ', 'набор символов').
+    lstTr<<tr("You can set or edit value of the context menu item 'Value'.");//Задать и изменить значение в элементе можно при помощи пункта 'Значение' контекстного меню.
+    lstTr<<tr("And you can set type book for this bybliography type and note if needed.");//Так же в полях над строкой нужно указать тип издания для которого применяется такое оформление литературы
+    QString str="<p align='justify'>"+lstTr[0]+" "
+                "<font color='blue'>"+lstTr[1]+"</font> "+lstTr[2]+" "
+                "<font color='red'>"+lstTr[3]+"</font> "+lstTr[4]+" "
+                +lstTr[5]+" "
+                +lstTr[6]+"<p>";
     CellPlusClass* cell;
     cell = new CellPlusClass("lblTitle","MultyLabel","",0,0,widthS,10);
     form->addCell(cell);
@@ -43,7 +50,7 @@ BibliografyWindow::BibliografyWindow(QStringList typesBk, BibliografyClass* bibC
     QGraphicsProxyWidget* gpw = scene->addWidget(lbl);
     gpw->moveBy(0,0);
     qreal dx=0;
-    str = "Тип издания:";
+    str = tr("Publications type:");//"Тип издания:";
     QGraphicsTextItem* gti = scene->addText(str);
     gti->moveBy(0,lineY-8*y);
     QFontMetrics mfont(gti->font());
@@ -60,7 +67,7 @@ BibliografyWindow::BibliografyWindow(QStringList typesBk, BibliografyClass* bibC
     gpw->moveBy(dx,lineY-8*y);
     gpw->setZValue(2);
 
-    str = "Примечание:";
+    str = tr("Note:");//"Примечание:";
     dx=dx+13*x+5;
     gti = scene->addText(str);
     gti->moveBy(dx,lineY-8*y);
@@ -74,14 +81,14 @@ BibliografyWindow::BibliografyWindow(QStringList typesBk, BibliografyClass* bibC
     gpw = scene->addWidget(text);
     gpw->moveBy(dx,lineY-8*y);
 
-    cell = new CellPlusClass("butOk","Button","Сохранить",0,0,6);
+    cell = new CellPlusClass("butOk","Button",tr("Save"),0,0,6);//"Сохранить"
     form->addCell(cell);
     connect(cell,SIGNAL(signalPress()),this,SLOT(slotAdd()));
     ButtonCell* butOk = new ButtonCell(cell);
     gpw = scene->addWidget(butOk);
     gpw->moveBy(0,lineY+5*y);
 
-    cell = new CellPlusClass("butCancel","Button","Отменить",0,0,6);
+    cell = new CellPlusClass("butCancel","Button",tr("Cancel"),0,0,6);//"Отменить"
     form->addCell(cell);
     connect(cell,SIGNAL(signalPress()),this,SLOT(close()));
     ButtonCell* butCancel = new ButtonCell(cell);
@@ -104,7 +111,7 @@ void BibliografyWindow::addItem(QString tp){
     bItem->setFlags(QGraphicsItem::ItemIsMovable);
     scene->addItem(bItem);
     bItem->setZValue(1);
-    if (tp=="Э"){
+    if (tp==tr("E")){
         bItem->moveBy(0,lineY+8);
     }else{
         bItem->moveBy(itemW+0.5*x,lineY+8);
@@ -115,24 +122,24 @@ void BibliografyWindow::setLine(QString str){
     QStringList list = str.split("%%");
     int n = list.count();//всего элементов
     QMap<QString, QString> map;//словарь что на что менять
-    map["author"]="Автор";
-    map["authors"]="Авторы";
-    map["publicationYear"]="Год издания";
-    map["publicationCity"]="Город";
-    map["bookName"]="Название";
-    map["publicationName"]="Издательство";
-    map["pages"]="Страницы";
-    map["bookType"]="Тип издания";
+    map["author"]=tr("Author","main");//"Автор";
+    map["authors"]=tr("Authors","main");//"Авторы";
+    map["publicationYear"]=tr("Publication year","main");//"Год издания";
+    map["publicationCity"]=tr("City","main");//Город";
+    map["bookName"]=tr("Title","main");//"Название";
+    map["publicationName"]=tr("Publication House","main");//"Издательство";
+    map["pages"]=tr("Pages","main");//"Страницы";
+    map["bookType"]=tr("Book type","main");"Тип издания";
 
     BibliografyItem* bItem;
     int pos = 0;
     for (int i=0;i<n;i++){
         if (map.contains(list[i])){
-            bItem = new BibliografyItem("Э");
+            bItem = new BibliografyItem(tr("E","main"));//э
             bItem->setValue(map[list[i]]);
         }else{
             if (list[i]=="") break;
-            bItem = new BibliografyItem("Р");
+            bItem = new BibliografyItem(tr("D","main"));//р
             bItem->setValue(list[i]);
         }
         bItem->setFlags(QGraphicsItem::ItemIsMovable);
@@ -203,7 +210,7 @@ void BibliografyWindow::slotItemPosition(BibliografyItem *bItem){
             bItem->setPos(posX*(itemW+2),lineY-3*y);
         }else{
             //возвращаем в начало
-            if (bItem->getType()=="Э"){
+            if (bItem->getType()==tr("E","main")){
                 bItem->setPos(0,lineY+8);
             }else{
                 bItem->setPos(itemW+0.5*x,lineY+8);
@@ -226,32 +233,32 @@ void BibliografyWindow::slotAdd(){
     //все дела
     if (form->getValue("fldType")==""){
         QMessageBox* msb = new QMessageBox(this);
-        msb->setWindowTitle("Ошибка!");
-        msb->setText("Не указан тип книг!");
+        msb->setWindowTitle(tr("Error!","main"));//"Ошибка!"
+        msb->setText(tr("Type books unknow!"));//"Не указан тип книг!");
         msb->show();
         return;
     }
     QString res="";
     int n = vecItems.count();
     for (int i=0;i<n;i++){
-        if (vecItems[i]->getType()=="Э"){
+        if (vecItems[i]->getType()==tr("E","main")){
             //если элемент книги. разделитель в строке %%
 //<<"Автор"<<"Авторы"<<"Год издания"<<"Город"<<"Название"<<"Издательство"<<"Страницы"<<"Тип издания"
-            if (vecItems[i]->getValue()=="Автор"){
+            if (vecItems[i]->getValue()==tr("Author","main")){
                 res=res+"author";
-            }else if(vecItems[i]->getValue()=="Авторы"){
+            }else if(vecItems[i]->getValue()==tr("Authors","main")){
                 res=res+"authors";
-            }else if(vecItems[i]->getValue()=="Год издания"){
+            }else if(vecItems[i]->getValue()==tr("Publication year","main")){
                 res=res+"publicationYear";
-            }else if(vecItems[i]->getValue()=="Город"){
+            }else if(vecItems[i]->getValue()==tr("City","main")){
                 res=res+"publicationCity";
-            }else if(vecItems[i]->getValue()=="Название"){
+            }else if(vecItems[i]->getValue()==tr("Title","main")){
                 res=res+"bookName";
-            }else if(vecItems[i]->getValue()=="Издательство"){
+            }else if(vecItems[i]->getValue()==tr("Publication House","main")){
                 res=res+"publicationName";
-            }else if(vecItems[i]->getValue()=="Страницы"){
+            }else if(vecItems[i]->getValue()==tr("Pages","main")){
                 res=res+"pages";
-            }else if(vecItems[i]->getValue()=="Тип издания"){
+            }else if(vecItems[i]->getValue()==tr("Book type","main")){
                 res=res+"bookType";
             }
             res=res+"%%";

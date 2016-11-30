@@ -15,7 +15,10 @@ BibliografyTable::BibliografyTable(QVector<QVector<QString> >  dt, QWidget *pare
     setColumnWidth(3,10*x);
     setColumnWidth(4,18*x);
     QStringList lst;
-    lst<<""<<"code"<<"Строка"<<"Тип издания"<<"Примечание";
+    lst<<""<<"code"
+      <<tr("String")
+     <<tr("Book type","main")//"Тип издания"
+    <<tr("Note","main");
     setHorizontalHeaderLabels(lst);
     setFixedSize(60*x,30*y);
     setAlternatingRowColors(true);
@@ -25,7 +28,7 @@ BibliografyTable::BibliografyTable(QVector<QVector<QString> >  dt, QWidget *pare
     }
     connect(this,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(slotSelectItem(QTableWidgetItem*)));
     contMenu = new QMenu;
-    QAction* actRemove = new QAction("Удалить",0);
+    QAction* actRemove = new QAction(tr("Remove"),0);
     connect(actRemove,SIGNAL(triggered(bool)),this,SLOT(slotRemove()));
 
     contMenu->addAction(actRemove);
@@ -33,7 +36,6 @@ BibliografyTable::BibliografyTable(QVector<QVector<QString> >  dt, QWidget *pare
 
 void BibliografyTable::addRow(QVector<QString> rw){
     if (rw.count()!=columnCount()){
-        qDebug()<<"не совпали"<<columnCount()<<rw.count();
         return;//не совпали размерности - остановили
     }
     int n = rowCount();
@@ -46,7 +48,6 @@ void BibliografyTable::addRow(QVector<QString> rw){
             if (i==2){
                 tItem = new QTableWidgetItem(toNormalString(rw[i]));
             }else{
-//                qDebug()<<i<<rw[i];
                 tItem = new QTableWidgetItem(rw[i]);
             }
 
@@ -91,14 +92,15 @@ QString BibliografyTable::toNormalString(QString str){
     QStringList list = str.split("%%");
     int n = list.count();//всего элементов
     QMap<QString, QString> map;//словарь что на что менять
-    map["author"]="Автор";
-    map["authors"]="Авторы";
-    map["publicationYear"]="Год издания";
-    map["publicationCity"]="Город";
-    map["bookName"]="Название";
-    map["publicationName"]="Издательство";
-    map["pages"]="Страницы";
-    map["bookType"]="Тип издания";
+
+    map["author"]=tr("Author","main");//"Автор";
+    map["authors"]=tr("Authors","main");//"Авторы";
+    map["publicationYear"]=tr("Publication year","main");//"Год издания";
+    map["publicationCity"]=tr("City","main");//Город";
+    map["bookName"]=tr("Title","main");//"Название";
+    map["publicationName"]=tr("Publication House","main");//"Издательство";
+    map["pages"]=tr("Pages","main");//"Страницы";
+    map["bookType"]=tr("Book type","main");"Тип издания";
 
     for (int i=0;i<n;i++){
         if (map.contains(list[i])){

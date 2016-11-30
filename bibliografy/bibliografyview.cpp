@@ -8,10 +8,10 @@ BibliografyView::BibliografyView(QGraphicsScene* parent) :
     //определяем контекстное меню
     contMenu = new QMenu(this);
     //значение
-    QAction* actValue = new QAction("Значение",0);
+    QAction* actValue = new QAction(tr("Value"),0);//"Значение"
     connect(actValue,SIGNAL(triggered(bool)),this,SLOT(slotValue()));
     //удалить
-    QAction* actRemove = new QAction("Удалить",0);
+    QAction* actRemove = new QAction(tr("Remove"),0);//"Удалить"
     connect(actRemove,SIGNAL(triggered(bool)),this,SLOT(slotRemove()));
 
     contMenu->addAction(actValue);
@@ -57,14 +57,21 @@ void BibliografyView::slotValue(){
 
     FormPlusData* form = new FormPlusData;
     CellPlusClass* cell;
-    cell = new CellPlusClass("lblTitle", "Label", "Значение", 0, 0, 10, 3);
+    cell = new CellPlusClass("lblTitle", "Label", tr("Value"), 0, 0, 10, 3);
     cell->setMergeColumn(2);
     cell->setAlignment("Center");
     form->addCell(cell);
-    if (currentItem->getType()=="Э"){
+    if (currentItem->getType()==tr("E","main")){
         cell = new CellPlusClass("fldValue", "Combobox", currentItem->getValue(), 1, 0, 10, 3);
         cell->setMergeColumn(2);
-        cell->setList(QStringList()<<"Автор"<<"Авторы"<<"Год издания"<<"Город"<<"Название"<<"Издательство"<<"Страницы"<<"Тип издания");
+        cell->setList(QStringList()<<tr("Author","main")
+                      <<tr("Authors","main")
+                      <<tr("Publication year","main")
+                      <<tr("City","main")
+                      <<tr("Title","main")
+                      <<tr("Publication House","main")
+                      <<tr("Pages","main")
+                      <<tr("Book type","main"));
         form->addCell(cell);
     }else{
         cell = new CellPlusClass("fldValue", "Text", currentItem->getValue(), 1, 0, 10, 3);
@@ -74,7 +81,7 @@ void BibliografyView::slotValue(){
     cell = new CellPlusClass("butOk", "Button", "Ok", 2, 0, 5, 3);
     form->addCell(cell);
 
-    cell = new CellPlusClass("butCancel", "Button", "Отмена", 2, 1, 5, 3);
+    cell = new CellPlusClass("butCancel", "Button", tr("Cancel","main"), 2, 1, 5, 3);
     form->addCell(cell);
 
     DialogInForm* dlg = new DialogInForm(form,this);

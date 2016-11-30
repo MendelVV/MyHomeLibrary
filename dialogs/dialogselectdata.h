@@ -2,7 +2,7 @@
 #define DIALOGSELECTDATA_H
 
 #include <QtWidgets>
-#include "sqlclass.h"
+#include "database/sqlclass.h"
 
 class DialogSelectData : public QDialog
 {

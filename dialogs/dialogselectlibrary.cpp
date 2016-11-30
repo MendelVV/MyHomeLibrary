@@ -20,7 +20,7 @@ DialogSelectLibrary::DialogSelectLibrary(SettingsBooksClass* setting, QWidget *p
     connect(butOk,SIGNAL(clicked(bool)),this,SLOT(accept()));
     butLayout->addWidget(butOk);
 
-    QPushButton* butCancel = new QPushButton("Отмена");
+    QPushButton* butCancel = new QPushButton(tr("Cancel"));
     butCancel->setFixedWidth(6*x);
     butCancel->setObjectName("ButtonCell");
     connect(butCancel,SIGNAL(clicked(bool)),this,SLOT(reject()));
@@ -40,8 +40,16 @@ DialogSelectLibrary::~DialogSelectLibrary(){
     delete form;
 }
 
+void DialogSelectLibrary::setFormText(){
+    form->getCell("lblTitle")->setValue(tr("Select library file and books directory"));
+    form->getCell("lblLibrary")->setValue(tr("Library data"));
+    form->getCell("lblDir")->setValue(tr("Directory data"));
+    form->getCell("butLibrary")->setValue(tr("Select"));
+    form->getCell("butDir")->setValue(tr("Select"));
+}
+
 void DialogSelectLibrary::slotSelectLibrary(){
-    QString str = QFileDialog::getOpenFileName(this,"Выберите файл библиотеки","","");
+    QString str = QFileDialog::getOpenFileName(this,tr("Select library file"),"","");//"Выберите файл библиотеки"
     if (str!=""){
         form->getCell("fldLibrary")->setValue(str);
         form->getCell("fldLibrary")->changeValueWidget();
@@ -49,7 +57,7 @@ void DialogSelectLibrary::slotSelectLibrary(){
 }
 
 void DialogSelectLibrary::slotSelectDir(){
-    QString str = QFileDialog::getExistingDirectory(this,"Выберите директорию с книгами","",false);
+    QString str = QFileDialog::getExistingDirectory(this,tr("Select books directory "),"",false);//"Выберите директорию с книгами"
     if (str!=""){
         form->getCell("fldDir")->setValue(str);
         form->getCell("fldDir")->changeValueWidget();

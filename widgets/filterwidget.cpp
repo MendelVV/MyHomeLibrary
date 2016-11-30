@@ -7,6 +7,7 @@ FilterWidget::FilterWidget(SQLClass* dbC, BooksTable* tab, QWidget *parent) :
     table = tab;
     form = new FormPlusData;
     form->readFormPlusData(":/resource/FormFilterWidget.cfpoq");
+    setFormText();
     slotRefresh();
     //слоты подключаем
 
@@ -18,6 +19,18 @@ FilterWidget::FilterWidget(SQLClass* dbC, BooksTable* tab, QWidget *parent) :
     ScrollWidget* sc = new ScrollWidget(ltf);
 
     setCentralWidget(sc);
+}
+
+void FilterWidget::setFormText(){
+    form->getCell("butFilter")->setValue(tr("Filter"));//применить фильтры
+    form->getCell("lblBookName")->setValue(tr("Title"));
+    form->getCell("lblAuthor")->setValue(tr("Author"));
+    form->getCell("lblCategory")->setValue(tr("Category"));
+    form->getCell("lblSubcategory")->setValue(tr("Subcategory"));
+    form->getCell("lblTypeBook")->setValue(tr("Book type"));
+    form->getCell("lblSelected")->setValue(tr("Selected"));
+    form->getCell("fldSelected")->setList(QStringList()<<tr("Yes")<<tr("No"));
+    form->getCell("butClear")->setValue(tr("Clear"));
 }
 
 void FilterWidget::slotFilter(QString colName){
@@ -91,9 +104,9 @@ void FilterWidget::slotFilter(QString colName){
         QVector<QString> codes = table->getSelected();
         int n = data.count();
         for (int i=n-1;i>=0;i--){
-            if (form->getValue("fldSelected")=="Да" && !codes.contains(data[i][0])){
+            if (form->getValue("fldSelected")==tr("Yes") && !codes.contains(data[i][0])){
                 data.remove(i);
-            }else if (form->getValue("fldSelected")=="Нет" && codes.contains(data[i][0])){
+            }else if (form->getValue("fldSelected")==tr("No") && codes.contains(data[i][0])){
                 data.remove(i);
             }
         }

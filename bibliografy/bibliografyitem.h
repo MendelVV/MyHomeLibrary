@@ -2,6 +2,7 @@
 #define BIBLIOGRAFYITEM_H
 
 #include <QtWidgets>
+#include <QApplication>
 
 class BibliografyItem : public QGraphicsItem
 {

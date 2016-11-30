@@ -4,12 +4,12 @@
 #include <QtWidgets>
 #include <QCoreApplication>
 #include "bookstable.h"
-#include "sqlclass.h"
-#include "libraryclass.h"
+#include "database/sqlclass.h"
+#include "library_classes/libraryclass.h"
 #include "dialogs/dialogcreatelibrary.h"
 #include "dialogs/bookview.h"
 #include "dialogs/dialogtypesbook.h"
-#include "filterwidget.h"
+#include "widgets/filterwidget.h"
 #include "bibliografy/bibliografylist.h"
 #include "dialogs/dialoginform.h"
 #include "dialogs/dialogselectlibrary.h"

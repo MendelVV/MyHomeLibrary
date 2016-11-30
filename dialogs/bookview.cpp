@@ -8,6 +8,7 @@ BookView::BookView(BookClass* bk, SQLClass* dbC, SettingsBooksClass* set, QWidge
     setting = set;
     form = new FormPlusData;
     form->readFormPlusData(":/resource/FormBookView.cfpoq");
+    setFormText();
     QVector<QString> vecTypes = db->selectColumn("tableBooksTypes","type");
     QStringList lst;
     int n = vecTypes.count();
@@ -18,7 +19,7 @@ BookView::BookView(BookClass* bk, SQLClass* dbC, SettingsBooksClass* set, QWidge
 
     isNew=false;
     if (book->getBookName()==""){
-        setWindowTitle("Новая книга");
+        setWindowTitle(tr("New book"));//"Новая книга"
         isNew=true;
     }else{
         setWindowTitle(book->getBookName());    
@@ -108,14 +109,14 @@ BookView::BookView(BookClass* bk, SQLClass* dbC, SettingsBooksClass* set, QWidge
     setCentralWidget(wgt);
 
     setActMenu();
-    QMenu* menu = new QMenu("Меню");
+    QMenu* menu = new QMenu(tr("Menu"));
     menu->addAction(actSave);
     menu->addAction(actSaveAndClose);
     menu->addSeparator();
     menu->addAction(actClose);
     menuBar()->addMenu(menu);
 
-    QMenu* menuBook = new QMenu("Файл книги");
+    QMenu* menuBook = new QMenu(tr("Book file"));
     menuBook->addAction(actOpenBook);
     menuBook->addAction(actSelectFile);
     menuBar()->addMenu(menuBook);
@@ -131,27 +132,39 @@ BookView::~BookView(){
 }
 
 void BookView::setActMenu(){
-    actSave = new QAction("Сохранить",0);
+    actSave = new QAction(tr("Save"),0);
     connect(actSave,SIGNAL(triggered(bool)),this,SLOT(slotSave()));
 
-    actSaveAndClose = new QAction("Сохранить и закрыть",0);
+    actSaveAndClose = new QAction(tr("Save and close"),0);
     connect(actSaveAndClose,SIGNAL(triggered(bool)),this,SLOT(slotSaveAndClose()));
 
-    actClose = new QAction("Закрыть",0);
+    actClose = new QAction(tr("Close"),0);
     connect(actClose,SIGNAL(triggered(bool)),this,SLOT(close()));
 
-    actOpenBook = new QAction("Открыть книгу",0);
+    actOpenBook = new QAction(tr("Open book"),0);
     connect(actOpenBook,SIGNAL(triggered(bool)),this,SLOT(slotOpenBook()));
 
-    actSelectFile = new QAction("Выбрать файл",0);
+    actSelectFile = new QAction(tr("Select file"),0);
     connect(actSelectFile,SIGNAL(triggered(bool)),this,SLOT(slotSelectFile()));
+}
+
+void BookView::setFormText(){
+    form->getCell("lblBookName")->setValue(tr("Title"));
+    form->getCell("lblCategory")->setValue(tr("Category"));
+    form->getCell("lblSubcategory")->setValue(tr("Subcategory"));
+    form->getCell("lblTypeBook")->setValue(tr("Book type"));
+    form->getCell("lblAuthor")->setValue(tr("Authors"));
+    form->getCell("lblPublicationName")->setValue(tr("Publication Home"));
+    form->getCell("lblPublicationCity")->setValue(tr("City"));
+    form->getCell("lblPublicationYear")->setValue(tr("Year"));
+    form->getCell("lblPages")->setValue(tr("Pages"));
 }
 
 void BookView::slotSave(){
     if (form->getValue("fldBookName")=="" || form->getValue("fldPublicationYear")==""){
         QMessageBox* msb = new QMessageBox(this);
-        msb->setWindowTitle("Ошибка!");
-        msb->setText("Не указано название книги или год издания!");
+        msb->setWindowTitle(tr("Error!"));
+        msb->setText(tr("Book title or publication year unknown!"));//"Не указано название книги или год издания!"
         msb->show();
         return;
     }
@@ -199,7 +212,7 @@ void BookView::slotSaveAndClose(){
 }
 
 void BookView::slotSelectFile(){
-    QString str = QFileDialog::getOpenFileName(this,"Выберите файл книги","","");
+    QString str = QFileDialog::getOpenFileName(this,tr("Selected book file"),"","");//"Выберите файл книги"
     if (str!=""){
         form->getCell("fldFileName")->setValue(str);
         form->getCell("fldFileName")->changeValueWidget();

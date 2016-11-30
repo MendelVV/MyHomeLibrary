@@ -1,0 +1,19 @@
+#ifndef WIDGETSCELLS_H
+#define WIDGETSCELLS_H
+#include "texteditcell.h"
+#include "lineeditcell.h"
+#include "comboboxcell.h"
+#include "labelcell.h"
+#include "dateeditcell.h"
+#include "numbercell.h"
+#include "numberintcell.h"
+#include "multylabelcell.h"
+#include "checkboxcell.h"
+#include "buttoncell.h"
+#include "passwordcell.h"
+#include "otherlinecell.h"
+#include "logincell.h"
+#include "completercell.h"
+#include "labelstaticcell.h"
+#include "listcell.h"
+#endif // WIDGETSCELLS_H

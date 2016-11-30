@@ -36,7 +36,7 @@ void BibliografyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     QColor colorE(230,255,230,180);//элемент
     QColor colorS(255,230,230,180);//разделитель
     painter->setPen(QPen(color, nPenWidth));
-    if (type=="Э"){
+    if (type==QApplication::tr("E")){
         painter->setBrush(QBrush(colorE));
     }else{
         painter->setBrush(QBrush(colorS));

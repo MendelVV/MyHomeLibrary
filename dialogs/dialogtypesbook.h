@@ -2,7 +2,7 @@
 #define DIALOGTYPESBOOK_H
 
 #include "layouttoform.h"
-#include "sqlclass.h"
+#include "database/sqlclass.h"
 #include "dialogs/dialoginform.h"
 
 class DialogTypesBook : public QDialog

@@ -7,6 +7,7 @@ SearchWidget::SearchWidget(SQLClass* dbC, QWidget *parent) :
     db = dbC;
     form = new FormPlusData;
     form->readFormPlusData(":/resource/FormSearchWidget.cfpoq");
+    setFormText();
     slotRefresh();
     connect(form->getCell("butSearch"),SIGNAL(signalPress()),this,SLOT(slotSearch()));
     connect(form->getCell("butCancel"),SIGNAL(signalPress()),this,SLOT(reject()));
@@ -22,6 +23,20 @@ SearchWidget::SearchWidget(SQLClass* dbC, QWidget *parent) :
 
 SearchWidget::~SearchWidget(){
     delete form;
+}
+
+void SearchWidget::setFormText(){
+    form->getCell("lblBookName")->setValue(tr("Title"));
+    form->getCell("lblCategory")->setValue(tr("Category"));
+    form->getCell("lblSubcategory")->setValue(tr("Subcategory"));
+    form->getCell("lblTypeBook")->setValue(tr("Book type"));
+    form->getCell("lblAuthor")->setValue(tr("Authors"));
+    form->getCell("lblPublicationName")->setValue(tr("Publication Home"));
+    form->getCell("lblPublicationCity")->setValue(tr("City"));
+    form->getCell("lblPublicationYear")->setValue(tr("Year"));
+
+    form->getCell("butSearch")->setValue(tr("Search"));
+    form->getCell("butCancel")->setValue(tr("Cancel"));
 }
 
 void SearchWidget::slotRefresh(){

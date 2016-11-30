@@ -3,9 +3,10 @@
 DialogCreateLibrary::DialogCreateLibrary(QWidget *parent) : QDialog(parent)
 {
     setModal(true);
-    setWindowTitle("Нет данных!");
+    setWindowTitle(tr("No data!"));//"Нет данных!"
     form = new FormPlusData;
     form->readFormPlusData(":/resource/FormDialogCreateLibrary.cfpoq");
+    setFormText();
     CellPlusClass* cell;
     cell = form->getCell("butNewLibrary");
     connect(cell,SIGNAL(signalPress()),this,SLOT(accept()));
@@ -18,3 +19,8 @@ DialogCreateLibrary::DialogCreateLibrary(QWidget *parent) : QDialog(parent)
     setLayout(ltf);
 }
 
+void DialogCreateLibrary::setFormText(){
+    form->getCell("lblText")->setValue(tr("Select action to continue"));
+    form->getCell("butNewLibrary")->setValue(tr("Create new library"));
+    form->getCell("butNotNewLibrary")->setValue(tr("Not create and continue"));
+}

@@ -3,7 +3,7 @@
 LibraryWindow::LibraryWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    setWindowTitle("My home's library 1.0.1");
+    setWindowTitle("My home's library 1.0.2");
 //    QPixmap pxmLib(":/resource/library.png");
 //    setWindowIcon(pxmLib);
     x =((double)GetSystemMetrics(SM_CXSCREEN))/100;
@@ -35,6 +35,7 @@ LibraryWindow::LibraryWindow(QWidget *parent) :
 
     formInf = new FormPlusData;
     formInf->readFormPlusData(":/resource/FormInformation.cfpoq");
+    formInf->getCell("fldSelectCount")->setValue(tr("Selected: ")+QString::number(0));//"Выбрано: "
     LayoutToForm* ltf = new LayoutToForm;
     ltf->addFormData(formInf);
   //  ltf->setMargin(0);
@@ -57,20 +58,20 @@ LibraryWindow::LibraryWindow(QWidget *parent) :
 
     setActMenu();
 
-    QMenu* menu = new QMenu("Меню");
+    QMenu* menu = new QMenu(tr("Menu"));
     menu->addAction(actSelect);
     menu->addAction(actSave);
     menu->addSeparator();
     menu->addAction(actExit);
     menuBar()->addMenu(menu);
 
-    QMenu* menuFunc = new QMenu("Функции");
+    QMenu* menuFunc = new QMenu(tr("Functions"));
     menuFunc->addAction(actAddBook);
     menuFunc->addAction(actSearch);
-    QMenu* menuFuncLoad = new QMenu("Загрузка");
+    QMenu* menuFuncLoad = new QMenu(tr("Import"));
     menuFuncLoad->addAction(actLoadXml);
     menuFunc->addMenu(menuFuncLoad);
-    QMenu* menuFuncUnload = new QMenu("Выгрузка");
+    QMenu* menuFuncUnload = new QMenu(tr("Export"));
     menuFuncUnload->addAction(actExportXml);
     menuFunc->addMenu(menuFuncUnload);
     menuFunc->addSeparator();
@@ -78,12 +79,12 @@ LibraryWindow::LibraryWindow(QWidget *parent) :
 
     menuBar()->addMenu(menuFunc);
 
-    QMenu* menuSetting = new QMenu("Настройки");
+    QMenu* menuSetting = new QMenu(tr("Settings"));//"Настройки"
     menuSetting->addAction(actTypesPublication);
     menuSetting->addAction(actBibliographiType);
     menuBar()->addMenu(menuSetting);
 
-    QMenu* menuActions = new QMenu("Действия");
+    QMenu* menuActions = new QMenu(tr("Actions"));//"Действия"
     menuActions->addAction(actBibliographiList);
     menuBar()->addMenu(menuActions);
     menuBar()->addAction(actAbout);
@@ -202,61 +203,61 @@ void LibraryWindow::readData(){
 }
 
 void LibraryWindow::setActMenu(){
-    actSelect = new QAction("Выбрать библиотеку",0);
+    actSelect = new QAction(tr("Select library"),0);//"Выбрать библиотеку"
     connect(actSelect,SIGNAL(triggered(bool)),this,SLOT(slotSelect()));
 
-    actSave = new QAction("Сохранить",0);
+    actSave = new QAction(tr("Save"),0);
     connect(actSave,SIGNAL(triggered(bool)),this,SLOT(slotSave()));
 
-    actExit = new QAction("Выйти",0);
+    actExit = new QAction(tr("Exit"),0);
     connect(actExit,SIGNAL(triggered(bool)),this,SLOT(close()));
 
-    actLoadXml = new QAction("Загрузить XML",0);
+    actLoadXml = new QAction(tr("Import XML"),0);//"Загрузить XML"
     connect(actLoadXml,SIGNAL(triggered(bool)),this,SLOT(slotLoadXML()));
 
-    actExportXml = new QAction("Выгрузить XML",0);
+    actExportXml = new QAction(tr("Export XML"),0);//"Выгрузить XML"
     connect(actExportXml,SIGNAL(triggered(bool)),this,SLOT(slotExportXML()));
 
-    actAddBook = new QAction("Добавить книгу",0);
+    actAddBook = new QAction(tr("Add Book"),0);//"Добавить книгу"
     connect(actAddBook,SIGNAL(triggered(bool)),this,SLOT(slotAddBook()));
 
-    actSearch = new QAction("Найти книгу",0);
+    actSearch = new QAction(tr("Search book"),0);//"Найти книгу"
     connect(actSearch,SIGNAL(triggered(bool)),this,SLOT(slotSearch()));
 
-    actRemoveBook = new QAction("Удалить книгу",0);
+    actRemoveBook = new QAction(tr("Remove book"),0);//"Удалить книгу"
     connect(actRemoveBook,SIGNAL(triggered(bool)),this,SLOT(slotRemoveBook()));
 
-    actTypesPublication = new QAction("Типы изданий",0);
+    actTypesPublication = new QAction(tr("Types books"),0);//"Типы изданий"
     connect(actTypesPublication,SIGNAL(triggered(bool)),this,SLOT(slotTypesPublication()));
 
-    actBibliographiList = new QAction("Библиографический список",0);
+    actBibliographiList = new QAction(tr("Bibliography"),0);//"Библиографический список"
     connect(actBibliographiList,SIGNAL(triggered(bool)),this,SLOT(slotBibliografyList()));
 
-    actBibliographiType = new QAction("Оформление библиографического списка",0);
+    actBibliographiType = new QAction(tr("Bibliography style"),0);//"Оформление библиографического списка"
     connect(actBibliographiType,SIGNAL(triggered(bool)),this,SLOT(slotBibliografyType()));
 
-    actAbout = new QAction("О программе",0);
+    actAbout = new QAction(tr("About"),0);//"О программе"
     connect(actAbout,SIGNAL(triggered(bool)),this,SLOT(slotAbout()));
 }
 
 QToolBar* LibraryWindow::createToolBar(){
-    QToolBar* toolBar = new QToolBar("Инструменты",this);
+    QToolBar* toolBar = new QToolBar(tr("Tools"),this);//"Инструменты"
     toolBar->setMovable(false);
     QPixmap pxmSave(":/resource/save.png");
-    toolBar->addAction(pxmSave,"Сохранить",this,SLOT(slotSave()));
+    toolBar->addAction(pxmSave,tr("Save"),this,SLOT(slotSave()));
     toolBar->addSeparator();
 
     QPixmap pxmSearch(":/resource/search.png");
-    toolBar->addAction(pxmSearch,"Найти книгу",this,SLOT(slotSearch()));
+    toolBar->addAction(pxmSearch,tr("Search book"),this,SLOT(slotSearch()));
     toolBar->addSeparator();
 
     QPixmap pxmAddBook(":/resource/addBook.png");
-    toolBar->addAction(pxmAddBook,"Добавить книгу",this,SLOT(slotAddBook()));
+    toolBar->addAction(pxmAddBook,tr("Add book"),this,SLOT(slotAddBook()));
 
     toolBar->addSeparator();
 
     QPixmap pxmRemoveBook(":/resource/removeBook.png");
-    toolBar->addAction(pxmRemoveBook,"Удалить книгу",this,SLOT(slotRemoveBook()));
+    toolBar->addAction(pxmRemoveBook,tr("Remove book"),this,SLOT(slotRemoveBook()));
 
     toolBar->setIconSize(QSize(32,32));
     return toolBar;
@@ -284,7 +285,7 @@ void LibraryWindow::slotSelect(){
     //выбираем файл и папку библиотеки
 
     DialogSelectLibrary* dlg = new DialogSelectLibrary(lib->getSetting(),this);
-    dlg->setWindowTitle("Выбор библиотеки");
+    dlg->setWindowTitle(tr("Select library"));//"Выбор библиотеки"
     if (dlg->exec()==QDialog::Accepted){
         QString path=QCoreApplication::applicationDirPath();
         QString fname = path+"/setting.data";//имя файла настроек
@@ -363,7 +364,7 @@ void LibraryWindow::slotAddBook(){
 
 void LibraryWindow::slotSearch(){
     SearchWidget* shw = new SearchWidget(db,this);
-    shw->setWindowTitle("Поиск книг");
+    shw->setWindowTitle(tr("Search books"));//"Поиск книг"
     if (shw->exec()==QDialog::Accepted){
         tableBooks->slotRefresh(shw->result);
     }
@@ -378,16 +379,16 @@ void LibraryWindow::slotRemoveBook(){
     if (codes.count()==0) return;
     FormPlusData* form = new FormPlusData;
 
-    QString str = "Вы уверены, что хотите удалить выбранные книги ("+QString::number(codes.count())+") ?";
+    QString str = tr("Are tou sure want to remove the selected books")+" ("+QString::number(codes.count())+") ?";//Вы уверены, что хотите удалить выбранные книги
     CellPlusClass* cell;
     cell = new CellPlusClass("lblText", "MultyLabel", str, 0, 0, 14, 5);
     cell->setMergeColumn(2);
     form->addCell(cell);
 
-    cell = new CellPlusClass("butOk", "Button", "Да", 1, 0, 7, 3);
+    cell = new CellPlusClass("butOk", "Button", tr("Yes"), 1, 0, 7, 3);
     form->addCell(cell);
 
-    cell = new CellPlusClass("butCancel", "Button", "Нет", 1, 1, 7, 3);
+    cell = new CellPlusClass("butCancel", "Button", tr("No"), 1, 1, 7, 3);
     form->addCell(cell);
     DialogInForm* dlg = new DialogInForm(form,this);
 
@@ -432,7 +433,7 @@ void LibraryWindow::slotRemoveBook(){
 }
 
 void LibraryWindow::slotLoadXML(){
-    QString str = QFileDialog::getOpenFileName(this,"Выберите xml файл","","");
+    QString str = QFileDialog::getOpenFileName(this,tr("Select xml file"),"","");//"Выберите xml файл"
     if (str.right(4)==".xml"){
         QVector<BookClass*> books = readXML(str);
         //считали xml файл и теперь имеем вектор книг
@@ -458,9 +459,10 @@ void LibraryWindow::slotLoadXML(){
         }
         if (dubels>0){
             QMessageBox* msb = new QMessageBox;
-            msb->setWindowTitle("Совпадения!");
-            msb->setText("Найдено "+QString::number(dubels)+" совпадений. Будет загружено "+QString::number(n-dubels)+
-                         " книг.");
+            msb->setWindowTitle(tr("Matches!"));//"Совпадения!"
+            msb->setText(tr("Found %1 matches. %2 books will be downloaded.").arg(dubels).arg(n-dubels));
+            // msb->setText("Найдено "+QString::number(dubels)+" совпадений. Будет загружено "+QString::number(n-dubels)+
+           //              " книг.");
             msb->show();
         }
 
@@ -471,8 +473,8 @@ void LibraryWindow::slotLoadXML(){
         filter->slotRefresh();
     }else{
         QMessageBox* msb = new QMessageBox;
-        msb->setWindowTitle("Ошибка!");
-        msb->setText("Файл не соответствует.");
+        msb->setWindowTitle(tr("Error!"));
+        msb->setText(tr("File not match."));//"Файл не соответствует."
         msb->show();
     }
 }
@@ -570,7 +572,11 @@ void LibraryWindow::slotCreateLibrary(){
     cur->putColumn("note",SQLCursor::VARCHAR);
     cur->putColumn("selected",SQLCursor::INT);
     QString str="author%% %%bookName%%/ %%authors%%.- %%publicationCity%%: %%publicationName%%, %%publicationYear%%.- %%pages%% с.%%";
-    line<<"1"<<"Общий"<<str<<"Стандартное оформление"<<"1";
+    line<<"1"
+       <<tr("Shared")//"Общий"
+       <<str
+      <<tr("Standart style")//"Стандартное оформление"
+     <<"1";
     cur->putLine(line);
     db->insertData("tableBibliografy",cur);
     delete cur;
@@ -579,7 +585,14 @@ void LibraryWindow::slotCreateLibrary(){
     cur->putColumn("code",SQLCursor::INT);
     cur->putColumn("type",SQLCursor::VARCHAR);
     QStringList lst;
-    lst<<"Журнал"<<"Монография"<<"Научная статья"<<"Научно-популярное пособие"<<"Научное пособие"<<"Учебное пособие"<<"Художественная литература";
+    lst<<tr("Journal")//"Журнал"
+      <<tr("Monograph")//"Монография"
+     <<tr("Research artile")//"Научная статья"
+    <<tr("Popular scientific benefits")//"Научно-популярное пособие"
+    <<tr("Research allowance")//"Научное пособие"
+    <<tr("Schoolbook")//"Учебное пособие"
+    <<tr("Fiction");//"Художественная литература";
+
     int n = lst.count();
     for (int i=0;i<n;i++){
         line.clear();
@@ -599,7 +612,7 @@ void LibraryWindow::slotTypesPublication(){
 }
 
 void LibraryWindow::slotSelectedCount(int ct){
-    formInf->getCell("fldSelectCount")->setValue("Выбрано: "+QString::number(ct));
+    formInf->getCell("fldSelectCount")->setValue(tr("Selected: ")+QString::number(ct));//"Выбрано: "
     formInf->getCell("fldSelectCount")->changeValueWidget();
 }
 
@@ -616,10 +629,10 @@ void LibraryWindow::slotBibliografyList(){
     QMap<QString, QString> mapBib = db->selectAsMap("tableBibliografy","type","value",whereStr);
     //итого имеем словарь библиографических описаний
     //идем по всем выбранным книжкам
-    if (!mapBib.contains("Общий")){
+    if (!mapBib.contains(tr("Shared"))){
         QMessageBox* msb = new QMessageBox(this);
-        msb->setWindowTitle("Ошибка!");
-        msb->setText("Должен быть указан общий тип оформления списка литературы!");
+        msb->setWindowTitle(tr("Error!"));
+        msb->setText("Must be specify shared bybliography type!");//"Должен быть указан общий тип оформления списка литературы!"
         msb->show();
         return;
     }
@@ -682,7 +695,7 @@ void LibraryWindow::slotBibliografyList(){
             }
         }else{
             //идем по общему типу
-            QStringList list = mapBib["Общий"].split("%%");
+            QStringList list = mapBib[tr("Shared")].split("%%");
             int m = list.count();//всего элементов
             for (int j=0;j<m;j++){
                 if (map.contains(list[j])){
@@ -697,7 +710,7 @@ void LibraryWindow::slotBibliografyList(){
     QTextEdit* textBib = new QTextEdit;
     QPixmap pxmLib(":/resource/library.png");
     textBib->setWindowIcon(pxmLib);
-    textBib->setWindowTitle("Список литературы");
+    textBib->setWindowTitle(tr("Bibliography"));
     textBib->setPlainText(strBib);
     textBib->setFixedSize(50*x,30*y);
     textBib->move(20*x,20*y);
@@ -759,8 +772,8 @@ void LibraryWindow::slotOpenBookFile(QString code){
         QDesktopServices::openUrl(url);
     }else{
         QMessageBox* msb = new QMessageBox(this);
-        msb->setWindowTitle("Ошибка!");
-        msb->setText("Не указано имя файла!");
+        msb->setWindowTitle(tr("Error!"));
+        msb->setText("Unknow file name!");//"Не указано имя файла!"
         msb->show();
     }
 }
@@ -770,15 +783,20 @@ void LibraryWindow::slotAbout(){
     QTextEdit* label = new QTextEdit("",0);
 
     label->setFont(font);
-    label->setWindowTitle("О программе");
+    label->setWindowTitle(tr("About"));
     label->setEnabled(false);
-    QString str = "<center><font color='black' size='4'>My home library 1.0.1</font></center>";
-    str = str+"<p align='justify'><font color='black'>Приложение разработано на основе библиотеки QT (версия 5.5.1) и предназначено для ведения "
-            "вашей собственной домашней библиотеки. My home library 1.0.1 поддерживает хранение сведений о книгах и удобный поиск по различным критериям, "
-            "формирование библиографических списков по вашему описанию, а так же выгрузку книг для обмена с другими людьми.";
-    str=str+"<br><br>Авторы: Мендель В.В., Косатюк П.И.";
-    str=str+"<br>Контактная информация:</font> <font color='blue'>mendel.vasilij@yandex.ru</font></p>";
-    str=str+"<center>2016 г. Версия 1.0.1</center>";
+    QString version = "1.1.0";
+    QString line = tr("Application develop on the basis of the QT (version 5.5.1) and intended to keeping your home library"
+                      "My home library %1 supports the storage of books data and easy search by various criteria, bibliofraphy forming and "
+                      "book exchange.").arg(version);
+    /*Приложение разработано на основе библиотеки QT (версия 5.5.1) и предназначено для ведения "
+            "вашей собственной домашней библиотеки. My home library 1.1.0 поддерживает хранение сведений о книгах и удобный поиск по различным критериям, "
+            "формирование библиографических списков по вашему описанию, а так же выгрузку книг для обмена с другими людьми.*/
+    QString str = "<center><font color='black' size='4'>My home library "+version+"</font></center>";
+    str = str+"<p align='justify'><font color='black'>"+line;
+    str=str+"<br><br>"+tr("Authors: Mendel V. and Mendel P.");//Авторы: Мендель В.В., Мендель П.И.
+    str=str+"<br>"+tr("Contact info: ")+"</font> <font color='blue'>mendel.vasilij@yandex.ru</font></p>";
+    str=str+"<center>"+tr("%1 year. Version %2").arg("2016").arg(version)+"</center>";
 
     label->insertHtml(str);
     label->setFixedWidth(40*x);

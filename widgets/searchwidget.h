@@ -2,7 +2,7 @@
 #define SEARCHWIDGET_H
 
 #include "layouttoform.h"
-#include "sqlclass.h"
+#include "database/sqlclass.h"
 
 class SearchWidget : public QDialog
 {
@@ -13,6 +13,8 @@ public:
     FormPlusData* form;
     SQLClass* db;
     QVector<QVector<QString> > result;
+protected:
+    void setFormText();
 signals:
 
 public slots:

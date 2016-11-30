@@ -11,5 +11,6 @@
         <file>resource/FormSearchWidget.cfpoq</file>
         <file>resource/FormFilterWidget.cfpoq</file>
         <file>resource/FormBookView.cfpoq</file>
+        <file>resource/myhomelibrary_ru.qm</file>
     </qresource>
 </RCC>

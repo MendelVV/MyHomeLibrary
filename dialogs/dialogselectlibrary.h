@@ -2,7 +2,7 @@
 #define DIALOGSELECTLIBRARY_H
 
 #include <layouttoform.h>
-#include "settingsbooksclass.h"
+#include "library_classes/settingsbooksclass.h"
 
 class DialogSelectLibrary : public QDialog
 {
@@ -12,7 +12,7 @@ public:
     ~DialogSelectLibrary();
     FormPlusData* form;
 protected:
-
+    void setFormText();
 signals:
 
 public slots:

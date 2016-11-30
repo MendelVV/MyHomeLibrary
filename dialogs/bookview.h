@@ -2,9 +2,9 @@
 #define BOOKVIEW_H
 
 #include "layouttoform.h"
-#include "bookclass.h"
-#include "sqlclass.h"
-#include "settingsbooksclass.h"
+#include "library_classes/bookclass.h"
+#include "database/sqlclass.h"
+#include "library_classes/settingsbooksclass.h"
 
 class BookView : public QMainWindow
 {
@@ -27,6 +27,7 @@ protected:
     QAction* actOpenBook;
     QAction* actSelectFile;
     void setActMenu();
+    void setFormText();
 signals:
     void signalNew(BookClass*);
     void signalSave(BookClass*,QString);
